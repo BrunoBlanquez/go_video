@@ -1,11 +1,11 @@
 <div align="center">
-  <img align="center" src="https://github.com/aline-fagundes/go-video_frontend/blob/dev/src/assets/img-header/Logo%20Preto.png?raw=true" width="200px"/>
+  <img align="center" src="https://user-images.githubusercontent.com/102121711/206720762-c075e523-f79c-401e-961c-d748723722a8.png" width="200px"/>
 </div>
 
 <samp>
   <h1 align="center"> Go Video </h1>
 <p align="center">
-Aplicação que tem como proposta fazer a gestão de equipamentos para produtoras de vídeos. Nessa plataforma será possível controlar a utilização dos equipamentos empregados diariamente nos projetos da produtora. 
+Aplicação que tem proposta fazer a gestão de equipamentos para produtoras de vídeos. Nessa plataforma será possível gerenciar a utilização dos equipamentos empregados diariamente pelos colaboradores em projetos da produtora. 
 
 <br>
   
@@ -15,7 +15,7 @@ Aplicação que tem como proposta fazer a gestão de equipamentos para produtora
   
   • <a href="#Funcionalidades">Funcionalidades</a> <br>
 	
-  • <a href="#UML">UML</a> <br>
+  • <a href="#Modelagem">Modelagem</a> <br>
 	
   • <a href="#Documentaçao">Documentação</a> <br>
 
@@ -83,18 +83,18 @@ Será possível fazer as seguintes interações:
 
 <br>
 
-<h2 align="center"> <a name="UML">  UML </h2>
+<h2 align="center"> <a name="Modelagem">  Modelagem </h2>
 
 - Diagrama de classes:
 <div align="center">
-  <img src="https://user-images.githubusercontent.com/102121711/206446321-025fe43b-4034-4518-ae9c-cddf07859a56.jpg" width="600px"><br>
+  <img src="https://user-images.githubusercontent.com/102121711/206715807-da246cb7-dd83-4075-b543-1a3de6726b37.png" width="600px"><br>
 </div> 
 
 <br><br>
 
 - Modelagem do banco de dados:
 <div align="center">
-  <img src="https://user-images.githubusercontent.com/102121711/206442158-62d717ca-bf94-4df9-8bc8-3823a35c39c9.jpg" width="600px"><br>
+  <img src="https://user-images.githubusercontent.com/102121711/206715616-194f8f35-9bbe-4f9f-b935-307f898f9b9b.png" width="600px"><br>
 </div> 
 
 <br>
@@ -110,7 +110,7 @@ Para consultar as funcionalidades da API implementadas, acesse a documentação 
 
 Para fazer requisições com `Try it out` que requerem permissão, é preciso obter um token de autenticação através do endpoint `/login`.
 
-![image](https://user-images.githubusercontent.com/102121711/206281118-023b4cf3-17e5-409f-8a41-cae77db0dc44.png)
+![image](https://user-images.githubusercontent.com/102121711/206713906-7612e00b-f2ba-424b-a765-4e95a7a3fa98.png)
 
 Credencial com permissão de administrador para testes:
 ```json
@@ -126,7 +126,7 @@ Credencial com permissão de administrador para testes:
 <details>
 <summary>Autenticação</summary><br>
  
-  |![image](https://user-images.githubusercontent.com/102121711/206281477-01920c04-0d9f-4672-a958-20a9954ae1f6.png)|
+  |![image](https://user-images.githubusercontent.com/102121711/206714241-f0ae817d-f6f4-4401-b07f-d6f565df77e7.png)|
   |:--:|
   | <b>Autenticação Endpoint</b>|
 </details>
@@ -134,7 +134,7 @@ Credencial com permissão de administrador para testes:
 <details>
 <summary>Equipamentos</summary><br>
  
-  |![image](https://user-images.githubusercontent.com/102121711/206281757-a9947d62-df28-428a-88e2-aac7f9252e60.png)|
+  |![image](https://user-images.githubusercontent.com/102121711/206714517-7fde2825-b157-44d4-bb27-ce133a62e730.png)|
   |:--:|
   | <b>Equipamentos Endpoint</b>|
 </details>
@@ -142,7 +142,7 @@ Credencial com permissão de administrador para testes:
 <details>
 <summary>Empréstimos</summary><br>
  
-  |![image](https://user-images.githubusercontent.com/102121711/206281630-a0736e8d-9ec8-43d4-aa55-181be854fcf8.png)|
+  |![image](https://user-images.githubusercontent.com/102121711/206714356-7b3ee2c9-094b-48af-94a1-404a3a70a688.png)|
   |:--:|
   | <b>Empréstimos Endpoint</b>|
 </details>
@@ -150,7 +150,7 @@ Credencial com permissão de administrador para testes:
 <details>
 <summary>Usuários</summary><br>
  
-  |![image](https://user-images.githubusercontent.com/102121711/206282155-b73b7566-d483-4e9e-958c-a4c6de5d67ab.png)|
+  |![image](https://user-images.githubusercontent.com/102121711/206714139-85ea1ee0-5a7f-45f7-ae06-70328caa9f5a.png)|
   |:--:|
   | <b>Usuários Endpoint</b>|
 </details>
@@ -175,32 +175,12 @@ Para consultar as telas prototipadas no Figma, acesse o link:
 <a href="https://www.figma.com/file/c83HNClXXIUbwf6lg9vuG4/Go_Video">Figma - Go Video</a>
 <br>
 
-- Paleta de cores: 
+- Guia de estilos: 
 
 <br>
 
 <div align="center">
-  <img src="https://user-images.githubusercontent.com/102121711/206285089-1fe69423-4947-4da0-88ad-cb99e4260df5.png" width="500px"><br>
-</div> 
-
-<br>
-
-- Tipografia: 
-
-<br>
-
-<div align="center">
-  <img src="https://user-images.githubusercontent.com/102121711/206285216-5747036a-de04-4b40-adc7-ce6c78d34ca2.png" width="500px"><br>
-</div> 
-
-<br>
-
-- Logotipo: 
-
-<br>
-
-<div align="center">
-  <img src="https://user-images.githubusercontent.com/102121711/206285383-4e524305-b8e7-482e-945e-0fab7403602e.png" width="500px"><br>
+  <img src="https://user-images.githubusercontent.com/102121711/206720553-b36d1bb4-156d-4ee7-b202-9efbfee451ae.png" width="700px"><br>
 </div> 
 
 <br>
