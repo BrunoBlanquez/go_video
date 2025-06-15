@@ -2,14 +2,13 @@ package com.govideo.gerenciador.exceptions;
 
 import org.springframework.http.HttpStatus;
 
-
-public class RecursoNaoEncontradoException extends RuntimeException {
+public class OperationNotAllowedException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
-    HttpStatus status = HttpStatus.NOT_FOUND;
+    HttpStatus status = HttpStatus.FORBIDDEN;
 
-    public RecursoNaoEncontradoException(String message) {
+    public OperationNotAllowedException(String message) {
         super(message);
     }
 

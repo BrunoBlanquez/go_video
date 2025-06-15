@@ -43,8 +43,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(RecursoNaoEncontradoException.class)
-    public final ResponseEntity<ExceptionResponse> recursoNaoEncontrado(RecursoNaoEncontradoException e,
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public final ResponseEntity<ExceptionResponse> recursoNaoEncontrado(ResourceNotFoundException e,
                                                                         HttpServletRequest req) {
         ExceptionResponse error = new ExceptionResponse(Instant.now(), e.getMessage(), req.getRequestURI());
         return new ResponseEntity<>(error, e.getStatus());
@@ -64,8 +64,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, e.getStatus());
     }
 
-    @ExceptionHandler(OperacaoNaoPermitidaException.class)
-    public final ResponseEntity<ExceptionResponse> operacaoNaoPermitida(OperacaoNaoPermitidaException e,
+    @ExceptionHandler(OperationNotAllowedException.class)
+    public final ResponseEntity<ExceptionResponse> operacaoNaoPermitida(OperationNotAllowedException e,
                                                                         HttpServletRequest req) {
         ExceptionResponse error = new ExceptionResponse(Instant.now(), e.getMessage(), req.getRequestURI());
         return new ResponseEntity<>(error, e.getStatus());

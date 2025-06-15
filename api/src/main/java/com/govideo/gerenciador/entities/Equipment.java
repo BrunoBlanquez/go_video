@@ -1,13 +1,13 @@
 package com.govideo.gerenciador.entities;
 
-import com.govideo.gerenciador.entities.enuns.StatusEquipamento;
+import com.govideo.gerenciador.entities.enuns.StatusEquipment;
 
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.Objects;
 
 @Entity
-public class Equipamento {
+public class Equipment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,12 +24,12 @@ public class Equipamento {
     private String urlFoto;
 
     @Enumerated(EnumType.STRING)
-    private StatusEquipamento status = StatusEquipamento.DISPONÍVEL;
+    private StatusEquipment status = StatusEquipment.AVAILABLE;
 
-    @Column(columnDefinition = "DATETIME")
+    @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private Instant criadoEm;
 
-    @Column(columnDefinition = "DATETIME")
+    @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private Instant atualizadoEm;
 
     @PrePersist
@@ -42,11 +42,11 @@ public class Equipamento {
         atualizadoEm = Instant.now();
     }
 
-    public Equipamento() {
+    public Equipment() {
 
     }
 
-    public Equipamento(String modelo, String descricao, String marca, String categoria, String urlFoto) {
+    public Equipment(String modelo, String descricao, String marca, String categoria, String urlFoto) {
         this.modelo = modelo;
         this.descricao = descricao;
         this.marca = marca;
@@ -58,8 +58,12 @@ public class Equipamento {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Equipamento that = (Equipamento) o;
+        Equipment that = (Equipment) o;
         return Objects.equals(id, that.id) && Objects.equals(modelo, that.modelo) && Objects.equals(descricao, that.descricao) && Objects.equals(marca, that.marca) && Objects.equals(categoria, that.categoria) && status == that.status;
+    }
+
+    public boolean isAvailable() {
+        return this.status == StatusEquipment.AVAILABLE;
     }
 
     @Override
@@ -115,11 +119,11 @@ public class Equipamento {
         this.urlFoto = urlFoto;
     }
 
-    public StatusEquipamento getStatus() {
+    public StatusEquipment getStatus() {
         return status;
     }
 
-    public void setStatus(StatusEquipamento status) {
+    public void setStatus(StatusEquipment status) {
         this.status = status;
     }
 

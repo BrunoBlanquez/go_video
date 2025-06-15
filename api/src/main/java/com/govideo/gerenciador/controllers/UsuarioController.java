@@ -1,6 +1,6 @@
 package com.govideo.gerenciador.controllers;
 
-import com.govideo.gerenciador.dtos.RespostaDTO;
+import com.govideo.gerenciador.dtos.MessageResponseDTO;
 import com.govideo.gerenciador.dtos.UsuarioDTO;
 import com.govideo.gerenciador.entities.Usuario;
 import com.govideo.gerenciador.forms.AlteraNomeUsuarioForm;
@@ -81,7 +81,7 @@ public class UsuarioController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Inativar usuario")
-    public ResponseEntity<RespostaDTO> excluir(@PathVariable("id") Long id) {
+    public ResponseEntity<MessageResponseDTO> excluir(@PathVariable("id") Long id) {
         return ResponseEntity.ok().body(usuarioService.inativar(id));
     }
 

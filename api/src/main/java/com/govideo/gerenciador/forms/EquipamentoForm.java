@@ -1,6 +1,6 @@
 package com.govideo.gerenciador.forms;
 
-import com.govideo.gerenciador.entities.Equipamento;
+import com.govideo.gerenciador.entities.Equipment;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -59,8 +59,8 @@ public class EquipamentoForm {
         return urlFoto;
     }
 
-    public Equipamento converterParaEntidade() {
-        return new Equipamento(modelo, descricao, marca, categoria, urlFoto);
+    public Equipment converterParaEntidade() {
+        return new Equipment(modelo, descricao, marca, categoria, urlFoto);
     }
 
 }

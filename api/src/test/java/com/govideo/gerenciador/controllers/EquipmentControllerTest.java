@@ -1,6 +1,6 @@
 package com.govideo.gerenciador.controllers;
 
-import com.govideo.gerenciador.services.EquipamentoService;
+import com.govideo.gerenciador.services.EquipmentService;
 import com.govideo.gerenciador.utilidades.EquipamentoGenerator;
 import com.govideo.gerenciador.utilidades.TokenGenerator;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class EquipamentoControllerTest {
+public class EquipmentControllerTest {
 
     private TokenGenerator tokenGenerator;
 
@@ -32,7 +32,7 @@ public class EquipamentoControllerTest {
     private MockMvc mockMvc;
 
     @Mock
-    private EquipamentoService equipamentoService;
+    private EquipmentService equipmentService;
 
     @BeforeEach
     public void beforeEach() {

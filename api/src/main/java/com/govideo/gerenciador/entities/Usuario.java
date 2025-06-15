@@ -33,10 +33,10 @@ public class Usuario implements UserDetails, Serializable {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Perfil> perfis = new ArrayList<>();
 
-    @Column(columnDefinition = "DATETIME")
+    @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private Instant criadoEm;
 
-    @Column(columnDefinition = "DATETIME")
+    @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private Instant atualizadoEm;
 
     @PrePersist

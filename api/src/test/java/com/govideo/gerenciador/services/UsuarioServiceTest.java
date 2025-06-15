@@ -1,18 +1,18 @@
 package com.govideo.gerenciador.services;
 
-import com.govideo.gerenciador.dtos.RespostaDTO;
+import com.govideo.gerenciador.dtos.MessageResponseDTO;
 import com.govideo.gerenciador.dtos.UsuarioDTO;
 import com.govideo.gerenciador.entities.Emprestimo;
-import com.govideo.gerenciador.entities.Equipamento;
+import com.govideo.gerenciador.entities.Equipment;
 import com.govideo.gerenciador.entities.Perfil;
 import com.govideo.gerenciador.entities.Usuario;
 import com.govideo.gerenciador.entities.enuns.StatusUsuario;
 import com.govideo.gerenciador.exceptions.ConflitoDeEmailException;
-import com.govideo.gerenciador.exceptions.OperacaoNaoPermitidaException;
-import com.govideo.gerenciador.exceptions.RecursoNaoEncontradoException;
+import com.govideo.gerenciador.exceptions.OperationNotAllowedException;
+import com.govideo.gerenciador.exceptions.ResourceNotFoundException;
 import com.govideo.gerenciador.forms.AlteraNomeUsuarioForm;
 import com.govideo.gerenciador.forms.UsuarioForm;
-import com.govideo.gerenciador.repositories.EmprestimoRepository;
+import com.govideo.gerenciador.repositories.EquipmentRentRepository;
 import com.govideo.gerenciador.repositories.PerfilRepository;
 import com.govideo.gerenciador.repositories.UsuarioRepository;
 import org.junit.jupiter.api.Test;
@@ -46,7 +46,7 @@ public class UsuarioServiceTest {
     private PerfilRepository perfilRepository;
 
     @Mock
-    private EmprestimoRepository emprestimoRepository;
+    private EquipmentRentRepository equipmentRentRepository;
 
     public Usuario mockUsuarioEntity() {
         Usuario usuario = new Usuario("Nome", "usuario@email.com", "123");
@@ -70,11 +70,11 @@ public class UsuarioServiceTest {
     }
 
     public Page<Emprestimo> mockEmprestimoPage() {
-        Equipamento equipamento = new Equipamento("Pocket Cinema 6K", "Filmadora profissional Pocket Cinema 6K", "Black Magic", "Filmadoras", "https://emania.vteximg.com.br/arquivos/ids/209607");
-        equipamento.setId(1L);
+        Equipment equipment = new Equipment("Pocket Cinema 6K", "Filmadora profissional Pocket Cinema 6K", "Black Magic", "Filmadoras", "https://emania.vteximg.com.br/arquivos/ids/209607");
+        equipment.setId(1L);
         Emprestimo emprestimo = new Emprestimo();
         emprestimo.setId(1L);
-        emprestimo.setEquipamento(equipamento);
+        emprestimo.setEquipamento(equipment);
         return new PageImpl<>(Collections.singletonList(emprestimo));
     }
 
@@ -103,7 +103,7 @@ public class UsuarioServiceTest {
 
     @Test
     public void naoDeveriaRetornarUsuarioAoBuscarPorId() {
-        RecursoNaoEncontradoException exception = assertThrows(RecursoNaoEncontradoException.class, () -> {
+        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> {
             when(usuarioRepository.findById(any())).thenReturn(Optional.empty());
             usuarioService.consultarPorId(1L);
         });
@@ -119,7 +119,7 @@ public class UsuarioServiceTest {
 
     @Test
     public void naoDeveriaRetornarUsuarioDTOAoBuscarPorId() {
-        RecursoNaoEncontradoException exception = assertThrows(RecursoNaoEncontradoException.class, () -> {
+        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> {
             when(usuarioRepository.findById(any())).thenReturn(Optional.empty());
             usuarioService.consultarPorIdRetornarDTO(1L, mockUsuarioEntity());
         });
@@ -165,20 +165,20 @@ public class UsuarioServiceTest {
         Pageable paginacao = PageRequest.of(0, 10);
         Usuario usuario = mockUsuarioEntity();
         when(usuarioRepository.findById(any())).thenReturn(Optional.of(usuario));
-        when(emprestimoRepository.findVigentesByUsuario(usuario.getId(), paginacao)).thenReturn(Page.empty());
+        when(equipmentRentRepository.findVigentesByUsuario(usuario.getId(), paginacao)).thenReturn(Page.empty());
         usuario.setStatus(StatusUsuario.INATIVO);
         when(usuarioRepository.save(any())).thenReturn(usuario);
-        RespostaDTO retorno = usuarioService.inativar(usuario.getId());
+        MessageResponseDTO retorno = usuarioService.inativar(usuario.getId());
         assertEquals("Usuário inativado com sucesso!", retorno.getMensagem());
     }
 
     @Test
     public void naoDeveriaInativarUsuarioComEmprestimoVigente() {
-        OperacaoNaoPermitidaException exception = assertThrows(OperacaoNaoPermitidaException.class, () -> {
+        OperationNotAllowedException exception = assertThrows(OperationNotAllowedException.class, () -> {
             Pageable paginacao = PageRequest.of(0, 10);
             Usuario usuario = mockUsuarioEntity();
             when(usuarioRepository.findById(any())).thenReturn(Optional.of(usuario));
-            when(emprestimoRepository.findVigentesByUsuario(usuario.getId(), paginacao)).thenReturn(mockEmprestimoPage());
+            when(equipmentRentRepository.findVigentesByUsuario(usuario.getId(), paginacao)).thenReturn(mockEmprestimoPage());
             usuarioService.inativar(usuario.getId());
         });
         assertEquals("Usuários com empréstimos vigentes não podem ser inativados!", exception.getMessage());

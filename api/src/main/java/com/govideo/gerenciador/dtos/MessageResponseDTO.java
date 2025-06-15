@@ -1,10 +1,10 @@
 package com.govideo.gerenciador.dtos;
 
-public class RespostaDTO {
+public class MessageResponseDTO {
 
     private String mensagem;
 
-    public RespostaDTO(String mensagem) {
+    public MessageResponseDTO(String mensagem) {
         this.mensagem = mensagem;
     }
 

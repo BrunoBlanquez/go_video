@@ -1,7 +1,7 @@
 package com.govideo.gerenciador.dtos;
 
 import com.govideo.gerenciador.entities.Emprestimo;
-import com.govideo.gerenciador.entities.Equipamento;
+import com.govideo.gerenciador.entities.Equipment;
 import com.govideo.gerenciador.entities.Usuario;
 import org.springframework.data.domain.Page;
 
@@ -11,7 +11,7 @@ public class EmprestimoDTO {
 
     private Long id;
 
-    private Equipamento equipamento;
+    private Equipment equipment;
 
     private Usuario usuario;
 
@@ -21,7 +21,7 @@ public class EmprestimoDTO {
 
     public EmprestimoDTO(Emprestimo emprestimo) {
         this.id = emprestimo.getId();
-        this.equipamento = emprestimo.getEquipamento();
+        this.equipment = emprestimo.getEquipamento();
         this.usuario = emprestimo.getUsuario();
         this.dataInicio = emprestimo.getDataInicio();
         this.dataFim = emprestimo.getDataFim();
@@ -31,8 +31,8 @@ public class EmprestimoDTO {
         return id;
     }
 
-    public Equipamento getEquipamento() {
-        return equipamento;
+    public Equipment getEquipamento() {
+        return equipment;
     }
 
     public Usuario getUsuario() {

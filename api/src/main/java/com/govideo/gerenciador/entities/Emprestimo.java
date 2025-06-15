@@ -13,7 +13,7 @@ public class Emprestimo {
     private Long id;
 
     @ManyToOne
-    private Equipamento equipamento;
+    private Equipment equipment;
 
     @ManyToOne
     private Usuario usuario;
@@ -22,11 +22,11 @@ public class Emprestimo {
 
     private LocalDateTime dataFim;
 
-    @Column(columnDefinition = "DATETIME")
-    private Instant criadoEm;
+    @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
+    private Instant  criadoEm;
 
-    @Column(columnDefinition = "DATETIME")
-    private Instant atualizadoEm;
+    @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
+    private Instant  atualizadoEm;
 
     @PrePersist
     public void prePersit() {
@@ -41,8 +41,8 @@ public class Emprestimo {
     public Emprestimo() {
     }
 
-    public Emprestimo(Equipamento equipamento, Usuario usuario) {
-        this.equipamento = equipamento;
+    public Emprestimo(Equipment equipment, Usuario usuario) {
+        this.equipment = equipment;
         this.usuario = usuario;
     }
 
@@ -51,12 +51,12 @@ public class Emprestimo {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Emprestimo that = (Emprestimo) o;
-        return Objects.equals(id, that.id) && Objects.equals(equipamento, that.equipamento) && Objects.equals(dataInicio, that.dataInicio) && Objects.equals(dataFim, that.dataFim) && Objects.equals(criadoEm, that.criadoEm) && Objects.equals(atualizadoEm, that.atualizadoEm);
+        return Objects.equals(id, that.id) && Objects.equals(equipment, that.equipment) && Objects.equals(dataInicio, that.dataInicio) && Objects.equals(dataFim, that.dataFim) && Objects.equals(criadoEm, that.criadoEm) && Objects.equals(atualizadoEm, that.atualizadoEm);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, equipamento, dataInicio, dataFim, criadoEm, atualizadoEm);
+        return Objects.hash(id, equipment, dataInicio, dataFim, criadoEm, atualizadoEm);
     }
 
     public Long getId() {
@@ -67,12 +67,12 @@ public class Emprestimo {
         this.id = id;
     }
 
-    public Equipamento getEquipamento() {
-        return equipamento;
+    public Equipment getEquipamento() {
+        return equipment;
     }
 
-    public void setEquipamento(Equipamento equipamento) {
-        this.equipamento = equipamento;
+    public void setEquipamento(Equipment equipment) {
+        this.equipment = equipment;
     }
 
     public Usuario getUsuario() {

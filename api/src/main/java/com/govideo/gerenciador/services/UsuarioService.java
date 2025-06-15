@@ -1,17 +1,17 @@
 package com.govideo.gerenciador.services;
 
-import com.govideo.gerenciador.dtos.RespostaDTO;
+import com.govideo.gerenciador.dtos.MessageResponseDTO;
 import com.govideo.gerenciador.dtos.UsuarioDTO;
 import com.govideo.gerenciador.entities.Perfil;
 import com.govideo.gerenciador.entities.Usuario;
 import com.govideo.gerenciador.entities.enuns.StatusUsuario;
 import com.govideo.gerenciador.exceptions.ConflitoDeEmailException;
-import com.govideo.gerenciador.exceptions.OperacaoNaoPermitidaException;
-import com.govideo.gerenciador.exceptions.RecursoNaoEncontradoException;
+import com.govideo.gerenciador.exceptions.OperationNotAllowedException;
+import com.govideo.gerenciador.exceptions.ResourceNotFoundException;
 import com.govideo.gerenciador.forms.AlteraNomeUsuarioForm;
 import com.govideo.gerenciador.forms.AlteraSenhaUsuarioForm;
 import com.govideo.gerenciador.forms.UsuarioForm;
-import com.govideo.gerenciador.repositories.EmprestimoRepository;
+import com.govideo.gerenciador.repositories.EquipmentRentRepository;
 import com.govideo.gerenciador.repositories.PerfilRepository;
 import com.govideo.gerenciador.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class UsuarioService {
     private PerfilRepository perfilRepository;
 
     @Autowired
-    private EmprestimoRepository emprestimoRepository;
+    private EquipmentRentRepository equipmentRentRepository;
 
     public Page<UsuarioDTO> consultar(Pageable paginacao) {
         Page<Usuario> usuarios = usuarioRepository.findAll(paginacao);
@@ -43,18 +43,18 @@ public class UsuarioService {
     }
 
     public UsuarioDTO consultarPorIdRetornarDTO(Long id, Usuario usuarioLogado) {
-        Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new RecursoNaoEncontradoException("Usuário não encontrado!"));
+        Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado!"));
         Long idUsuarioLogado = usuarioLogado.getId();
         List<Perfil> perfilUsuarioLogado = usuarioLogado.getPerfis();
 
         if (!perfilUsuarioLogado.get(0).getPerfil().equals("ROLE_ADMINISTRADOR") && !idUsuarioLogado.equals(id)) {
-            throw new OperacaoNaoPermitidaException("Não é possível consultar perfil de outro colaborador!");
+            throw new OperationNotAllowedException("Não é possível consultar perfil de outro colaborador!");
         }
         return new UsuarioDTO(usuario);
     }
 
     public Usuario consultarPorId(Long id) {
-        return usuarioRepository.findById(id).orElseThrow(() -> new RecursoNaoEncontradoException("Usuário não encontrado!"));
+        return usuarioRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado!"));
     }
 
     public Page<UsuarioDTO> consultarPorStatus(String statusString, Pageable paginacao) {
@@ -104,7 +104,7 @@ public class UsuarioService {
         Long idUsuarioLogado = usuarioLogado.getId();
 
         if (!idUsuarioLogado.equals(id)) {
-            throw new OperacaoNaoPermitidaException("Não é possível alterar a senha de outro colaborador!");
+            throw new OperationNotAllowedException("Não é possível alterar a senha de outro colaborador!");
         }
 
         var passwordEncoder = new BCryptPasswordEncoder();
@@ -135,24 +135,24 @@ public class UsuarioService {
     }
 
     @Transactional
-    public RespostaDTO inativar(Long id) {
+    public MessageResponseDTO inativar(Long id) {
         Usuario usuario = consultarPorId(id);
         String mensagem;
         Pageable paginacao = PageRequest.of(0, 10);
 
         if (usuario.getEmail().equals("admin@email.com")) {
-            throw new OperacaoNaoPermitidaException("O administrador não pode ser inativado!");
+            throw new OperationNotAllowedException("O administrador não pode ser inativado!");
         }
 
-        if (emprestimoRepository.findVigentesByUsuario(id, paginacao).hasContent()) {
-            throw new OperacaoNaoPermitidaException("Usuários com empréstimos vigentes não podem ser inativados!");
+        if (equipmentRentRepository.findVigentesByUsuario(id, paginacao).hasContent()) {
+            throw new OperationNotAllowedException("Usuários com empréstimos vigentes não podem ser inativados!");
         } else {
             usuario.setStatus(StatusUsuario.INATIVO);
             mensagem = "Usuário inativado com sucesso!";
         }
 
         usuarioRepository.save(usuario);
-        return new RespostaDTO(mensagem);
+        return new MessageResponseDTO(mensagem);
     }
 
 }

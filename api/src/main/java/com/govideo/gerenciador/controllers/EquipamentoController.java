@@ -1,9 +1,10 @@
 package com.govideo.gerenciador.controllers;
 
-import com.govideo.gerenciador.dtos.EquipamentoDTO;
-import com.govideo.gerenciador.dtos.RespostaDTO;
+import com.govideo.gerenciador.dtos.EquipmentDTO;
+import com.govideo.gerenciador.dtos.MessageResponseDTO;
+import com.govideo.gerenciador.entities.enuns.StatusEquipment;
 import com.govideo.gerenciador.forms.EquipamentoForm;
-import com.govideo.gerenciador.services.EquipamentoService;
+import com.govideo.gerenciador.services.EquipmentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -26,52 +27,54 @@ import java.net.URI;
 public class EquipamentoController {
 
     @Autowired
-    EquipamentoService equipamentoService;
+    EquipmentService equipmentService;
 
     @GetMapping
     @Operation(summary = "Listar todos os equipamentos")
-    public ResponseEntity<Page<EquipamentoDTO>> consultar(@PageableDefault(sort = "id", direction = Sort.Direction.DESC, page = 0, size = 5) Pageable paginacao) {
-        Page<EquipamentoDTO> equipamentosDtos = equipamentoService.consultar(paginacao);
+    public ResponseEntity<Page<EquipmentDTO>> consultar(@PageableDefault(sort = "id", direction = Sort.Direction.DESC, page = 0, size = 5) Pageable paginacao) {
+        Page<EquipmentDTO> equipamentosDtos = equipmentService.consultar(paginacao);
         return ResponseEntity.ok().body(equipamentosDtos);
     }
 
     @GetMapping("/ativos")
     @Operation(summary = "Listar equipamentos ativos")
-    public ResponseEntity<Page<EquipamentoDTO>> consultarAtivos(@PageableDefault(sort = "id", direction = Sort.Direction.DESC, page = 0, size = 5) Pageable paginacao) {
-        Page<EquipamentoDTO> equipamentosDtos = equipamentoService.consultarAtivos(paginacao);
+    public ResponseEntity<Page<EquipmentDTO>> consultarAtivos(@PageableDefault(sort = "id", direction = Sort.Direction.DESC, page = 0, size = 5) Pageable paginacao) {
+        Page<EquipmentDTO> equipamentosDtos = equipmentService.consultarAtivos(paginacao);
         return ResponseEntity.ok().body(equipamentosDtos);
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Consultar equipamento por ID")
-    public ResponseEntity<EquipamentoDTO> consultarPorId(@PathVariable("id") Long id) {
-        return ResponseEntity.ok().body(equipamentoService.consultarPorIdRetornarDTO(id));
+    public ResponseEntity<EquipmentDTO> consultarPorId(@PathVariable("id") Long id) {
+        return ResponseEntity.ok().body(equipmentService.consultarPorIdRetornarDTO(id));
     }
 
-    @GetMapping("/buscarPorStatus/{status}")
+    @GetMapping("/searchByStatus/{status}")
     @Operation(summary = "Listar equipamentos por status")
-    public ResponseEntity<Page<EquipamentoDTO>> consultarPorStatus(@PageableDefault(sort = "id", direction = Sort.Direction.DESC, page = 0, size = 5) Pageable paginacao, @PathVariable("status") String status) {
-        return ResponseEntity.ok().body(equipamentoService.consultarPorStatus(status, paginacao));
+    public ResponseEntity<Page<EquipmentDTO>> consultarPorStatus(
+            @PageableDefault(sort = "id", direction = Sort.Direction.DESC, page = 0, size = 5) Pageable paginacao,
+            @PathVariable("status") StatusEquipment status) {
+        return ResponseEntity.ok().body(equipmentService.findAllByStatus(status, paginacao));
     }
 
     @PostMapping
     @Operation(summary = "Cadastrar equipamento")
-    public ResponseEntity<EquipamentoDTO> cadastrar(@Valid @RequestBody EquipamentoForm equipamentoForm, UriComponentsBuilder uriBuilder) {
-        EquipamentoDTO equipamentoDTO = equipamentoService.cadastrar(equipamentoForm);
-        URI uri = uriBuilder.path("/equipamentos/{id}").buildAndExpand(equipamentoDTO.getId()).toUri();
-        return ResponseEntity.created(uri).body(equipamentoDTO);
+    public ResponseEntity<EquipmentDTO> cadastrar(@Valid @RequestBody EquipamentoForm equipamentoForm, UriComponentsBuilder uriBuilder) {
+        EquipmentDTO equipmentDTO = equipmentService.cadastrar(equipamentoForm);
+        URI uri = uriBuilder.path("/equipamentos/{id}").buildAndExpand(equipmentDTO.getId()).toUri();
+        return ResponseEntity.created(uri).body(equipmentDTO);
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Alterar equipamento")
-    public ResponseEntity<EquipamentoDTO> alterar(@PathVariable Long id, @Valid @RequestBody EquipamentoForm equipamentoForm) {
-        return ResponseEntity.ok().body(equipamentoService.alterar(id, equipamentoForm));
+    public ResponseEntity<EquipmentDTO> alterar(@PathVariable Long id, @Valid @RequestBody EquipamentoForm equipamentoForm) {
+        return ResponseEntity.ok().body(equipmentService.alterar(id, equipamentoForm));
     }
 
     @DeleteMapping("/{id}")
-    @Operation(summary = "Excluir ou inativar equipamento")
-    public ResponseEntity<RespostaDTO> excluir(@PathVariable("id") Long id) {
-        return ResponseEntity.ok().body(equipamentoService.excluir(id));
+    @Operation(summary = "Delete or inactivate equipaments")
+    public ResponseEntity<MessageResponseDTO> excluir(@PathVariable("id") Long id) {
+        return ResponseEntity.ok().body(equipmentService.deleteOrInactivateEquipment(id));
     }
 
 }

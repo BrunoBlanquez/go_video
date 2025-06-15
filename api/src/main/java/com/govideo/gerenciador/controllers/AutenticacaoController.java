@@ -4,7 +4,7 @@ import com.govideo.gerenciador.dtos.TokenDTO;
 import com.govideo.gerenciador.entities.Usuario;
 import com.govideo.gerenciador.entities.enuns.StatusUsuario;
 import com.govideo.gerenciador.exceptions.CredenciaisIncorretasException;
-import com.govideo.gerenciador.exceptions.OperacaoNaoPermitidaException;
+import com.govideo.gerenciador.exceptions.OperationNotAllowedException;
 import com.govideo.gerenciador.forms.LoginForm;
 import com.govideo.gerenciador.repositories.UsuarioRepository;
 import com.govideo.gerenciador.services.AutenticacaoService;
@@ -51,7 +51,7 @@ public class AutenticacaoController {
         Optional<Usuario> usuario = usuarioRepository.findByEmail(form.getEmail());
         if (usuario.isPresent()) {
             if (usuario.get().getStatus().equals(StatusUsuario.INATIVO)) {
-                throw new OperacaoNaoPermitidaException("Seu perfil está inativo, entre em contato com o administrador do sistema");
+                throw new OperationNotAllowedException("Seu perfil está inativo, entre em contato com o administrador do sistema");
             }
         } else {
             throw new CredenciaisIncorretasException("Email informado incorreto");
