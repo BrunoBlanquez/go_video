@@ -1,6 +1,7 @@
 package com.govideo.gerenciador.entities;
 
 import com.govideo.gerenciador.entities.enuns.StatusEquipment;
+import com.govideo.gerenciador.forms.EquipmentForm;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -13,45 +14,45 @@ public class Equipment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String modelo;
+    private String model;
 
-    private String descricao;
+    private String description;
 
-    private String marca;
+    private String brand;
 
-    private String categoria;
+    private String category;
 
-    private String urlFoto;
+    private String imageURL;
 
     @Enumerated(EnumType.STRING)
     private StatusEquipment status = StatusEquipment.AVAILABLE;
 
     @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
-    private Instant criadoEm;
+    private Instant createdAt;
 
     @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
-    private Instant atualizadoEm;
+    private Instant updatedAt;
 
     @PrePersist
     public void prePersit() {
-        criadoEm = Instant.now();
+        createdAt = Instant.now();
     }
 
     @PreUpdate
     public void preUpdate() {
-        atualizadoEm = Instant.now();
+        updatedAt = Instant.now();
     }
 
     public Equipment() {
 
     }
 
-    public Equipment(String modelo, String descricao, String marca, String categoria, String urlFoto) {
-        this.modelo = modelo;
-        this.descricao = descricao;
-        this.marca = marca;
-        this.categoria = categoria;
-        this.urlFoto = urlFoto;
+    public Equipment(String model, String description, String brand, String category, String imageURL) {
+        this.model = model;
+        this.description = description;
+        this.brand = brand;
+        this.category = category;
+        this.imageURL = imageURL;
     }
 
     @Override
@@ -59,7 +60,7 @@ public class Equipment {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Equipment that = (Equipment) o;
-        return Objects.equals(id, that.id) && Objects.equals(modelo, that.modelo) && Objects.equals(descricao, that.descricao) && Objects.equals(marca, that.marca) && Objects.equals(categoria, that.categoria) && status == that.status;
+        return Objects.equals(id, that.id) && Objects.equals(model, that.model) && Objects.equals(description, that.description) && Objects.equals(brand, that.brand) && Objects.equals(category, that.category) && status == that.status;
     }
 
     public boolean isAvailable() {
@@ -68,7 +69,7 @@ public class Equipment {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, modelo, descricao, marca, categoria, status);
+        return Objects.hash(id, model, description, brand, category, status);
     }
 
     public Long getId() {
@@ -79,44 +80,44 @@ public class Equipment {
         this.id = id;
     }
 
-    public String getModelo() {
-        return modelo;
+    public String getModel() {
+        return model;
     }
 
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
+    public void setModel(String model) {
+        this.model = model;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getMarca() {
-        return marca;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setMarca(String marca) {
-        this.marca = marca;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
-    public String getCategoria() {
-        return categoria;
+    public String getCategory() {
+        return category;
     }
 
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
-    public String getUrlFoto() {
-        return urlFoto;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    public void setUrlFoto(String urlFoto) {
-        this.urlFoto = urlFoto;
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public StatusEquipment getStatus() {
@@ -127,12 +128,19 @@ public class Equipment {
         this.status = status;
     }
 
-    public Instant getCriadoEm() {
-        return criadoEm;
+    public Instant getCreatedAt() {
+        return createdAt;
     }
 
-    public Instant getAtualizadoEm() {
-        return atualizadoEm;
+    public Instant getUpdatedAt() {
+        return updatedAt;
     }
 
+    public void updateWith(EquipmentForm form) {
+        this.model = form.getModelo();
+        this.description = form.getDescricao();
+        this.brand = form.getMarca();
+        this.category = form.getCategoria();
+        this.imageURL = form.getUrlFoto();
+    }
 }

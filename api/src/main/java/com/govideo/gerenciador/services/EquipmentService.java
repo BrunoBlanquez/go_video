@@ -6,7 +6,7 @@ import com.govideo.gerenciador.entities.Equipment;
 import com.govideo.gerenciador.entities.enuns.StatusEquipment;
 import com.govideo.gerenciador.exceptions.OperationNotAllowedException;
 import com.govideo.gerenciador.exceptions.ResourceNotFoundException;
-import com.govideo.gerenciador.forms.EquipamentoForm;
+import com.govideo.gerenciador.forms.EquipmentForm;
 import com.govideo.gerenciador.repositories.EquipmentRepository;
 import com.govideo.gerenciador.repositories.EquipmentRentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,21 +50,21 @@ public class EquipmentService {
     }
 
     @Transactional
-    public EquipmentDTO cadastrar(EquipamentoForm equipamentoForm) {
-        Equipment equipment = equipamentoForm.converterParaEntidade();
+    public EquipmentDTO cadastrar(EquipmentForm equipmentForm) {
+        Equipment equipment = equipmentForm.converterParaEntidade();
         equipment = equipmentRepository.save(equipment);
         return new EquipmentDTO(equipment);
     }
 
     @Transactional
-    public EquipmentDTO alterar(Long id, EquipamentoForm equipamentoForm) {
+    public EquipmentDTO alterar(Long id, EquipmentForm equipmentForm) {
         Equipment equipment = consultById(id);
 
-        equipment.setModelo(equipamentoForm.getModelo());
-        equipment.setDescricao(equipamentoForm.getDescricao());
-        equipment.setMarca(equipamentoForm.getMarca());
-        equipment.setCategoria(equipamentoForm.getCategoria());
-        equipment.setUrlFoto(equipamentoForm.getUrlFoto());
+        equipment.setModel(equipmentForm.getModelo());
+        equipment.setDescription(equipmentForm.getDescricao());
+        equipment.setBrand(equipmentForm.getMarca());
+        equipment.setCategory(equipmentForm.getCategoria());
+        equipment.setImageURL(equipmentForm.getUrlFoto());
         equipment = equipmentRepository.save(equipment);
 
         return new EquipmentDTO(equipment);

@@ -22,11 +22,11 @@ public class EquipmentDTO {
 
     public EquipmentDTO(Equipment equipment) {
         this.id = equipment.getId();
-        this.modelo = equipment.getModelo();
-        this.descricao = equipment.getDescricao();
-        this.marca = equipment.getMarca();
-        this.categoria = equipment.getCategoria();
-        this.urlFoto = equipment.getUrlFoto();
+        this.modelo = equipment.getModel();
+        this.descricao = equipment.getDescription();
+        this.marca = equipment.getBrand();
+        this.categoria = equipment.getCategory();
+        this.urlFoto = equipment.getImageURL();
         this.status = equipment.getStatus();
     }
 

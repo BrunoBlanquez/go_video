@@ -3,7 +3,7 @@ package com.govideo.gerenciador.controllers;
 import com.govideo.gerenciador.dtos.EquipmentDTO;
 import com.govideo.gerenciador.dtos.MessageResponseDTO;
 import com.govideo.gerenciador.entities.enuns.StatusEquipment;
-import com.govideo.gerenciador.forms.EquipamentoForm;
+import com.govideo.gerenciador.forms.EquipmentForm;
 import com.govideo.gerenciador.services.EquipmentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -59,16 +59,16 @@ public class EquipamentoController {
 
     @PostMapping
     @Operation(summary = "Cadastrar equipamento")
-    public ResponseEntity<EquipmentDTO> cadastrar(@Valid @RequestBody EquipamentoForm equipamentoForm, UriComponentsBuilder uriBuilder) {
-        EquipmentDTO equipmentDTO = equipmentService.cadastrar(equipamentoForm);
+    public ResponseEntity<EquipmentDTO> cadastrar(@Valid @RequestBody EquipmentForm equipmentForm, UriComponentsBuilder uriBuilder) {
+        EquipmentDTO equipmentDTO = equipmentService.cadastrar(equipmentForm);
         URI uri = uriBuilder.path("/equipamentos/{id}").buildAndExpand(equipmentDTO.getId()).toUri();
         return ResponseEntity.created(uri).body(equipmentDTO);
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Alterar equipamento")
-    public ResponseEntity<EquipmentDTO> alterar(@PathVariable Long id, @Valid @RequestBody EquipamentoForm equipamentoForm) {
-        return ResponseEntity.ok().body(equipmentService.alterar(id, equipamentoForm));
+    public ResponseEntity<EquipmentDTO> alterar(@PathVariable Long id, @Valid @RequestBody EquipmentForm equipmentForm) {
+        return ResponseEntity.ok().body(equipmentService.alterar(id, equipmentForm));
     }
 
     @DeleteMapping("/{id}")

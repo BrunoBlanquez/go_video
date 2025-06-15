@@ -5,7 +5,7 @@ import com.govideo.gerenciador.entities.Equipment;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public class EquipamentoForm {
+public class EquipmentForm {
 
     @NotNull
     @NotEmpty
@@ -27,11 +27,11 @@ public class EquipamentoForm {
     @NotEmpty
     private String urlFoto;
 
-    public EquipamentoForm() {
+    public EquipmentForm() {
 
     }
 
-    public EquipamentoForm(String modelo, String descricao, String marca, String categoria, String urlFoto) {
+    public EquipmentForm(String modelo, String descricao, String marca, String categoria, String urlFoto) {
         this.modelo = modelo;
         this.descricao = descricao;
         this.marca = marca;

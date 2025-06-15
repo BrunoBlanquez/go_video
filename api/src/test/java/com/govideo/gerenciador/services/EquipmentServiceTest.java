@@ -7,7 +7,7 @@ import com.govideo.gerenciador.entities.Equipment;
 import com.govideo.gerenciador.entities.enuns.StatusEquipment;
 import com.govideo.gerenciador.exceptions.OperationNotAllowedException;
 import com.govideo.gerenciador.exceptions.ResourceNotFoundException;
-import com.govideo.gerenciador.forms.EquipamentoForm;
+import com.govideo.gerenciador.forms.EquipmentForm;
 import com.govideo.gerenciador.repositories.EquipmentRentRepository;
 import com.govideo.gerenciador.repositories.EquipmentRepository;
 import org.junit.jupiter.api.Test;
@@ -47,8 +47,8 @@ public class EquipmentServiceTest {
         return equipment;
     }
 
-    public EquipamentoForm mockEquipamentoForm() {
-        return new EquipamentoForm("Pocket Cinema 6K", "Filmadora profissional Pocket Cinema 6K", "Black Magic", "Filmadoras", "https://emania.vteximg.com.br/arquivos/ids/209607");
+    public EquipmentForm mockEquipamentoForm() {
+        return new EquipmentForm("Pocket Cinema 6K", "Filmadora profissional Pocket Cinema 6K", "Black Magic", "Filmadoras", "https://emania.vteximg.com.br/arquivos/ids/209607");
     }
 
     public Page<Equipment> mockEquipamentoPage() {
