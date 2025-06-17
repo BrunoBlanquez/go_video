@@ -51,7 +51,7 @@ public class EquipmentService {
 
     @Transactional
     public EquipmentDTO cadastrar(EquipmentForm equipmentForm) {
-        Equipment equipment = equipmentForm.converterParaEntidade();
+        Equipment equipment = equipmentForm.toDomain();
         equipment = equipmentRepository.save(equipment);
         return new EquipmentDTO(equipment);
     }
@@ -60,11 +60,11 @@ public class EquipmentService {
     public EquipmentDTO alterar(Long id, EquipmentForm equipmentForm) {
         Equipment equipment = consultById(id);
 
-        equipment.setModel(equipmentForm.getModelo());
-        equipment.setDescription(equipmentForm.getDescricao());
-        equipment.setBrand(equipmentForm.getMarca());
-        equipment.setCategory(equipmentForm.getCategoria());
-        equipment.setImageURL(equipmentForm.getUrlFoto());
+        equipment.setModel(equipmentForm.getModel());
+        equipment.setDescription(equipmentForm.getDescription());
+        equipment.setBrand(equipmentForm.getBrand());
+        equipment.setCategory(equipmentForm.getCategory());
+        equipment.setImageURL(equipmentForm.getImageURL());
         equipment = equipmentRepository.save(equipment);
 
         return new EquipmentDTO(equipment);

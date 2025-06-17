@@ -2,6 +2,7 @@ package com.govideo.gerenciador.entities;
 
 import com.govideo.gerenciador.entities.enuns.StatusEquipment;
 import com.govideo.gerenciador.forms.EquipmentForm;
+import com.govideo.gerenciador.valueobjects.*;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -14,15 +15,15 @@ public class Equipment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String model;
+    private Model model;
 
-    private String description;
+    private Description description;
 
-    private String brand;
+    private Brand brand;
 
-    private String category;
+    private Category category;
 
-    private String imageURL;
+    private ImageURL imageURL;
 
     @Enumerated(EnumType.STRING)
     private StatusEquipment status = StatusEquipment.AVAILABLE;
@@ -47,7 +48,7 @@ public class Equipment {
 
     }
 
-    public Equipment(String model, String description, String brand, String category, String imageURL) {
+    public Equipment(Model model, Description description, Brand brand, Category category, ImageURL imageURL) {
         this.model = model;
         this.description = description;
         this.brand = brand;
@@ -67,65 +68,32 @@ public class Equipment {
         return this.status == StatusEquipment.AVAILABLE;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, model, description, brand, category, status);
-    }
-
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getModel() {
+    public Model getModel() {
         return model;
     }
 
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public String getDescription() {
+    public Description getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getBrand() {
+    public Brand getBrand() {
         return brand;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getImageURL() {
+    public ImageURL getImageURL() {
         return imageURL;
-    }
-
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
     }
 
     public StatusEquipment getStatus() {
         return status;
-    }
-
-    public void setStatus(StatusEquipment status) {
-        this.status = status;
     }
 
     public Instant getCreatedAt() {
@@ -136,11 +104,16 @@ public class Equipment {
         return updatedAt;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, model, description, brand, category, status);
+    }
+
     public void updateWith(EquipmentForm form) {
-        this.model = form.getModelo();
-        this.description = form.getDescricao();
-        this.brand = form.getMarca();
-        this.category = form.getCategoria();
-        this.imageURL = form.getUrlFoto();
+        this.model = new Model(form.getModel());
+        this.description = new Description(form.getDescription());
+        this.brand = new Brand(form.getBrand());
+        this.category = new Category(form.getCategory());
+        this.imageURL = new ImageURL(form.getImageURL());
     }
 }

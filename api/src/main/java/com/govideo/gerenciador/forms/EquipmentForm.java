@@ -1,6 +1,7 @@
 package com.govideo.gerenciador.forms;
 
 import com.govideo.gerenciador.entities.Equipment;
+import com.govideo.gerenciador.valueobjects.*;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -9,58 +10,57 @@ public class EquipmentForm {
 
     @NotNull
     @NotEmpty
-    private String modelo;
+    private String model;
 
     @NotNull
     @NotEmpty
-    private String descricao;
+    private String description;
 
     @NotNull
     @NotEmpty
-    private String marca;
+    private String brand;
 
     @NotNull
     @NotEmpty
-    private String categoria;
+    private String category;
 
     @NotNull
     @NotEmpty
-    private String urlFoto;
+    private String imageURL;
 
     public EquipmentForm() {
 
     }
 
-    public EquipmentForm(String modelo, String descricao, String marca, String categoria, String urlFoto) {
-        this.modelo = modelo;
-        this.descricao = descricao;
-        this.marca = marca;
-        this.categoria = categoria;
-        this.urlFoto = urlFoto;
+    public EquipmentForm(String model, String description, String brand, String category, String imageURL) {
+        this.model = model;
+        this.description = description;
+        this.brand = brand;
+        this.category = category;
+        this.imageURL = imageURL;
     }
 
-    public String getModelo() {
-        return modelo;
+    public String getModel() {
+        return model;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getDescription() {
+        return description;
     }
 
-    public String getMarca() {
-        return marca;
+    public String getBrand() {
+        return brand;
     }
 
-    public String getCategoria() {
-        return categoria;
+    public String getCategory() {
+        return category;
     }
 
-    public String getUrlFoto() {
-        return urlFoto;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    public Equipment converterParaEntidade() {
-        return new Equipment(modelo, descricao, marca, categoria, urlFoto);
+    public Equipment toDomain() {
+        return new Equipment(new Model(model), new Description(description), new Brand(brand), new Category(category), new ImageURL(imageURL));
     }
-
 }
